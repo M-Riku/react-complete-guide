@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
-import Person from './Person/Person'
+import UserOutput from './UserOutput/UserOutput'
+import UserInput from './UserInput/UserInput'
 import './App.css';
 
 class App extends Component {
   state = {
-    persons: [
-      { name: "Lu", age: 25 },
-      { name: "Manu", age: 29 },
-      { name: "Stephanie", age: 27 }
-    ]
-  }
+    username: "Lu",
+  };
 
-  switchNameHandler = (newname) => {
-    this.setState({
-      persons: [
-        { name: newname, age: 25 },
-        { name: "Manu", age: 29 },
-        { name: "Stephanie", age: 27 }
-      ]
-    });
-  }
-
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Lu", age: 25 },
-        { name: event.target.value, age: 29 },
-        { name: "Stephanie", age: 27 }
-      ]
-    });
-  }
+  userNameChangeHandler = (event) => {
+    this.setState(
+      { username: event.target.value },
+    );
+  };
 
   render() {
     const style = {
@@ -42,24 +25,10 @@ class App extends Component {
 
     return (
       <div className="App" >
-        <h1> Hi, world!</h1>
-        <p>This is really working!</p>
-        <button style={style} onClick={() => this.switchNameHandler("lulu")}>Switch Name</button>
-        <Person
-          click={this.switchNameHandler.bind(this, "lu")}
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age} >
-        </Person>
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          changed={this.nameChangedHandler}>
-          My Hobby: Racing!
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}>
-        </Person>
+        <h1>Assignment 1 by lulu</h1>
+        <UserOutput username={this.state.username} />
+        <UserInput changed={this.userNameChangeHandler} value={this.state.username} />
+        <UserOutput style={style} username="mune" />
       </div >
     );
   }
