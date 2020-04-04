@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import Person from './Person/Person'
-import './App.css';
 
-const StyledButton = styled.button`
-  {
-    background-color: ${ props => props.alt ? 'red' : 'green'};
-    color: white;
-    font: inherit;
-    border: 1px solid blue;
-    padding: 8px;
-    cursor: pointer;
-    &:hover {
-      background-color: ${ props => props.alt ? 'salmon' : 'lightgreen'};
-      color: black
-  }
-`
+import classes from './App.module.css';
 
 class App extends Component {
   state = {
@@ -60,6 +46,7 @@ class App extends Component {
 
   render() {
     let persons = null;
+    let btnClasses = [classes.Button];
 
     if (this.state.showPersons) {
       persons = (
@@ -74,21 +61,23 @@ class App extends Component {
           })}
         </div>
       )
+
+      btnClasses.push(classes.Red);
     }
 
-    const classes = [];
+    const pClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      pClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      pClasses.push(classes.bold);
     }
 
     return (
-      <div className="App" >
+      <div className={classes.App} >
         <h1> Hi, I'm a react APP!</h1>
-        <p className={classes.join(" ")}>This is really working!</p>
-        <StyledButton alt={this.state.showPersons} onClick={this.switchTogglePersons}>Toggle Persons</StyledButton>
+        <p className={pClasses.join(" ")}>This is really working!</p>
+        <button className={btnClasses.join(" ")} onClick={this.switchTogglePersons}>Toggle Persons</button>
         {persons}
       </div >
     );
